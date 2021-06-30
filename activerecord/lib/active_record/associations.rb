@@ -630,8 +630,13 @@ module ActiveRecord
       # Similarly, if any of the +before_remove+ callbacks throw an exception, the object
       # will not be removed from the collection.
       #
-      # Note: In order to trigger remove callbacks use either +firm.clients.destroy_all+ or +firm.clients.destory(c).
-      # Attempting to remove them using +firm.clients.destory+ will not trigger callbacks.
+      # Note: In order to trigger remove callbacks use any of following:
+      #   * +firm.clients.destroy_all+
+      #   * +firm.clients.destroy(c)+
+      #
+      # Attempting to remove them using the following will *not* trigger callbacks:
+      #   * +firm.clients.delete_all+
+      #   * +firm.clients.delete(c)+
       #
       # == Association extensions
       #
@@ -1184,8 +1189,6 @@ module ActiveRecord
       # it returns the association rather than the records which have been deleted.
       #
       # === What gets deleted?
-      #
-      # There is a potential pitfall here: #has_and_belongs_to_many and #has_many <tt>:through</tt>
       # associations have records in join tables, as well as the associated records. So when we
       # call one of these deletion methods, what exactly should be deleted?
       #
